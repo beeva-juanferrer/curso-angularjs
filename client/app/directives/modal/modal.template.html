@@ -1,0 +1,21 @@
+<div ng-if="show" class="result">
+  <div class="result-box">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="result-box-content">
+          <p ng-show="sendValue">Enviando...</p>
+
+          <p ng-show="successValue">Hemos recibido correctamente tu solicitud</p>
+
+          <p ng-show="errorValue">Ocurrio un error al procesar la solicitud.</p>
+
+          <div class="row">
+            <div class="col-lg-offset-5">
+              <button ng-click="close()">Cerrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

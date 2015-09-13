@@ -10,6 +10,8 @@ angular.module('carsApp')
     $scope.errorForm = false;
     $scope.sendingForm = false;
 
+    $scope.selectText = "Seleccione una opción";
+
     $scope.options = {
       configurationTypes: [],
       bodyEngines: [],
@@ -45,19 +47,44 @@ angular.module('carsApp')
 
     $scope.resetForm = function () {
       $scope.customer.type = $scope.NORMAL;
-      $scope.customer.bodyEngine = $scope.options.bodyEngines[0].value;
-      $scope.customer.engine = $scope.options.engines[0].value;
-      $scope.customer.transmission = $scope.options.transmissions[0].value;
+      //$scope.customer.bodyEngine = $scope.options.bodyEngines[0].value;
+      $scope.customer.bodyEngine = null
+      //$scope.customer.engine = $scope.options.engines[0].value;
+      $scope.customer.engine = null
+      //$scope.customer.transmission = $scope.options.transmissions[0].value;
+      $scope.customer.transmission = null
       $scope.customer.finish = $scope.options.finishes[0].value;
       $scope.customer.tires = $scope.options.tires[0].value;
-      $scope.customer.color = $scope.options.colors[0].value;
-      $scope.customer.colorSport = $scope.options.colorsSport[0].value;
+      //$scope.customer.color = $scope.options.colors[0].value;
+      $scope.customer.color = null
+      //$scope.customer.colorSport = $scope.options.colorsSport[0].value;
+      $scope.customer.colorSport = null;
       for (var extra in $scope.options.extras) {
         $scope.customer.extras[extra] = false;
       }
       $scope.customer.comments = '';
       $scope.customer.cp = '';
       $scope.customer.email = '';
+    };
+
+    $scope.resetInForm = function(form) {
+
+      // text
+      form.email.$dirty = false;
+      form.cp.$dirty = false;
+
+      // textarea
+      form.comments.$dirty = false;
+
+      // select
+      form.bodyEngine.$dirty = false;
+      form.engine.$dirty = false;
+      form.transmission.$dirty = false;
+      form.color.$dirty = false;
+
+      if(typeof form.colorSport !== 'undefined') {
+        form.colorSport.$dirty = false
+      }
     };
 
     $scope.changeOptions = function () {
@@ -76,23 +103,38 @@ angular.module('carsApp')
       }
     };
 
+    $scope.activeErrors = function(form, value) {
+      var req = form.$error.required;
+      if (req !== undefined) {
+        for (var i = 0; i < req.length; i++) {
+          form.$error.required[i].$dirty = value;
+        }
+      }
+    };
+
     $scope.sendForm = function () {
-      $scope.showResult = true;
-      $scope.sendingForm = true;
-      $scope.errorForm = false;
-      $scope.successForm = false;
+      if(!$scope.carsForm.$invalid) {
+        $scope.showResult = true;
+        $scope.sendingForm = true;
+        $scope.errorForm = false;
+        $scope.successForm = false;
 
-      $http.post('/api/customers', $scope.customer)
-        .then(function (response) {
-          $scope.sendingForm = false;
-          $scope.successForm = true;
-          $scope.resetForm();
+        $http.post('/api/customers', $scope.customer)
+          .then(function (response) {
+            $scope.sendingForm = false;
+            $scope.successForm = true;
+            $scope.resetForm();
+            $scope.resetInForm($scope.carsForm);
 
-        }, function (error) {
-          $scope.sendingForm = false;
-          $scope.errorForm = true;
+          }, function (error) {
+            $scope.sendingForm = false;
+            $scope.errorForm = true;
 
-        });
+          });
+      } else {
+        $scope.activeErrors($scope.carsForm, true);
+      }
+
     };
 
     $scope.closeResult = function () {
