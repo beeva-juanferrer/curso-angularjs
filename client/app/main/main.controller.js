@@ -47,17 +47,12 @@ angular.module('carsApp')
 
     $scope.resetForm = function () {
       $scope.customer.type = $scope.NORMAL;
-      //$scope.customer.bodyEngine = $scope.options.bodyEngines[0].value;
       $scope.customer.bodyEngine = null
-      //$scope.customer.engine = $scope.options.engines[0].value;
       $scope.customer.engine = null
-      //$scope.customer.transmission = $scope.options.transmissions[0].value;
       $scope.customer.transmission = null
       $scope.customer.finish = $scope.options.finishes[0].value;
       $scope.customer.tires = $scope.options.tires[0].value;
-      //$scope.customer.color = $scope.options.colors[0].value;
       $scope.customer.color = null
-      //$scope.customer.colorSport = $scope.options.colorsSport[0].value;
       $scope.customer.colorSport = null;
       for (var extra in $scope.options.extras) {
         $scope.customer.extras[extra] = false;
