@@ -10,7 +10,7 @@ angular.module('carsApp')
     $scope.errorForm = false;
     $scope.sendingForm = false;
 
-    $scope.selectText = "Seleccione una opción";
+    $scope.selectText = 'Seleccione una opción';
 
     $scope.options = {
       configurationTypes: [],
@@ -47,12 +47,12 @@ angular.module('carsApp')
 
     $scope.resetForm = function () {
       $scope.customer.type = $scope.NORMAL;
-      $scope.customer.bodyEngine = null
-      $scope.customer.engine = null
-      $scope.customer.transmission = null
+      $scope.customer.bodyEngine = null;
+      $scope.customer.engine = null;
+      $scope.customer.transmission = null;
       $scope.customer.finish = $scope.options.finishes[0].value;
       $scope.customer.tires = $scope.options.tires[0].value;
-      $scope.customer.color = null
+      $scope.customer.color = null;
       $scope.customer.colorSport = null;
       for (var extra in $scope.options.extras) {
         $scope.customer.extras[extra] = false;
@@ -78,7 +78,7 @@ angular.module('carsApp')
       form.color.$dirty = false;
 
       if(typeof form.colorSport !== 'undefined') {
-        form.colorSport.$dirty = false
+        form.colorSport.$dirty = false;
       }
     };
 
@@ -115,13 +115,13 @@ angular.module('carsApp')
         $scope.successForm = false;
 
         $http.post('/api/customers', $scope.customer)
-          .then(function (response) {
+          .then(function () {
             $scope.sendingForm = false;
             $scope.successForm = true;
             $scope.resetForm();
             $scope.resetInForm($scope.carsForm);
 
-          }, function (error) {
+          }, function () {
             $scope.sendingForm = false;
             $scope.errorForm = true;
 
@@ -134,6 +134,6 @@ angular.module('carsApp')
 
     $scope.closeResult = function () {
       $scope.showResult = false;
-    }
+    };
 
   });

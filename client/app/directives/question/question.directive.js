@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('carsApp').directive("question", function () {
+angular.module('carsApp').directive('question', function () {
 
     return {
         // A: como atributo
@@ -43,14 +43,14 @@ angular.module('carsApp').directive("question", function () {
           // text, number, email
           place: '@' // placeholder estático (opcional)
         },
-        link: function (scope, element) {
+        link: function (scope) {
 
 
           // MODELO
           // ========================================================
 
           // expresiones regulares
-          scope.er_mail = /^(?!.*\.{2})([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+([\.][a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+)*)@((([\-]?[a-zA-Z0-9]){2,}[\.])*(([a-zA-Z0-9][\-]?))+).(([\.]([a-zA-Z0-9][\-]?){2,}([a-zA-Z0-9])*)+)$/;
+          scope.ErMail = /^(?!.*\.{2})([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+([\.][a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+)*)@((([\-]?[a-zA-Z0-9]){2,}[\.])*(([a-zA-Z0-9][\-]?))+).(([\.]([a-zA-Z0-9][\-]?){2,}([a-zA-Z0-9])*)+)$/;
 
 
 
@@ -67,7 +67,7 @@ angular.module('carsApp').directive("question", function () {
            */
           function chargeTemplate (type) {
               var file = (type === 'number' || type === 'email') ? 'text' : type;
-              return 'app/directives/question/views/' + file + ".template.html";
+              return 'app/directives/question/views/' + file + '.template.html';
           }
 
 
@@ -77,7 +77,7 @@ angular.module('carsApp').directive("question", function () {
           /**
            * funciones para las preguntas de tipo radio
            */
-          scope.exec_change = function () {
+          scope.execChange = function () {
               scope.changeRadio();
           };
 
